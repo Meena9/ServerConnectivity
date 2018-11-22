@@ -1,0 +1,171 @@
+<html>
+    <head>
+       <title>Post / update</title>
+       <link rel="stylesheet" type="text/css" href="../css/style.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+       <script>
+
+            $(document).ready(function(){
+            
+            
+            var url=window.location.href;
+            
+            var spliturl=url.split("?");
+            console.log(spliturl[1]);
+            if(spliturl[1]==undefined){
+
+$("#submit").click(function(){   
+            
+            var myObje={
+            
+                name:$('#name').val(),
+                email:$('#email').val(),
+                phone:$('#phone').val(),
+                 address:$('#address').val(),
+                  gender:$('#gender').val(),
+                 
+                 
+            };
+               
+            
+              
+            console.log(myObje);
+            
+            //var jsonObjects = JSON.stringify(myObje) 
+            
+            
+            
+            //console.log(jsonObjects);
+            $.ajax({
+                      url:'HTTP://172.104.190.30:7777/api/v1/users',
+                      type: 'POST',
+                      data:myObje,
+                      dataType:'JSON',
+                    
+                      
+                      success: function(result) {
+                      //Write your code here
+                      console.log("suceess");
+                      $('input[type="text"], textarea').val('');
+                    
+                      alert("success");
+                      },
+                      error:function(result) {console.log("error");}
+            });
+               });   
+
+
+            }else{
+
+
+                    var id=spliturl[1].split('=');
+var id=id[1];
+console.log(id);
+ var url_="HTTP://172.104.190.30:7777/api/v1/users/"+id;
+console.log(url_)
+$.ajax({
+          url:url_,
+          type: 'GET',
+          dataType:'JSON',
+        
+          
+          success: function(result) {
+ 	     //Write your code here
+          var data=result.data;
+        console.log(result)
+        $('#name').val(data.name);
+        $('#email').val(data.email);
+        $('#phone').val(data.phone);
+        $('#address').val(data.address);
+        $('#gender').val((data.gender).toUpperCase());
+         
+          },
+          error:function(result) {console.log("error");}
+    });
+
+
+
+
+
+   $("#submit").click(function(){   
+
+var myObje={
+
+    name:$('#name').val(),
+    email:$('#email').val(),
+    phone:$('#phone').val(),
+     address:$('#address').val(),
+      gender:$('#gender').val(),
+     
+     
+};
+   
+
+  
+console.log(myObje);
+
+//var jsonObjects = JSON.stringify(myObje) 
+
+
+
+//console.log(jsonObjects);
+$.ajax({
+          url:url_,
+          type: 'PUT',
+          data:myObje,
+          
+          
+          success: function(result) {
+ 	     //Write your code here
+          console.log(" update suceess");
+           window.location.href = "../grid/grid.html";
+
+         
+          },
+          error:function(result) {console.log("error");}
+});
+   });   
+                
+            }
+              
+            });
+            </script>
+            
+    </head>
+    <body>
+
+            <form action="#" id ="addform">
+                    <center> <h1> Post the data / Udate the data</h1></center>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name..">
+          
+              <label for="email">Enter Age</label>
+              <input type="text" id="email" name="email" length ="3" placeholder="Your age..">
+          
+              
+             
+              
+          
+              <label for="Phone No">Enter Phone no</label>
+              <input type="text" id="phone" name="phone" placeholder="Your Phone..">
+             
+              <label for="address">Enter Address</label>
+              <input type="Text" id="address" name="address" placeholder="Your address..">
+          
+              <label for="gender">Gender</label>
+          
+              <select id="gender" name="gender">
+                <option value="FEMALE">FEMALE</option>
+                <option value="MALE">MALE</option>
+               
+              </select>
+          
+              <input type="button" id="submit" value="Submit">
+              <a href='../grid/grid.html' > <input type="button" value="cancel"></a>
+            </form>
+    
+          
+    </body>
+</html>

@@ -1,0 +1,119 @@
+
+<html>
+    <head>
+        <title>Table</title>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       
+       
+       
+       
+       <script>
+        $(document).ready(function(){
+
+
+
+
+var $getdata=$('#getM');
+$.ajax({
+ url:'HTTP://172.104.190.30:7777/api/v1/users',
+       type: 'GET',
+       
+       
+       success: function(getdata) {
+       //Write your code here
+      var mytable= '';
+            console.log("success");     
+   var data=getdata.data;
+   var id=data.map(x=>x._id);
+   var name=data.map(x=>x.name);
+   var email=data.map(x=>x.email);
+   var phone=data.map(x=>x.phone);
+   var address=data.map(x=>x.address);
+   var gender=data.map(x=>x.gender);
+var a;
+ for(var i=0;i<name.length;i++){
+     mytable+='<tr>';
+             mytable+='<td>'+id[i]+'</td>';
+             mytable+='<td>'+name[i]+'</td>';
+             mytable+='<td>'+email[i]+'</td>';
+             mytable+='<td>'+phone[i]+'</td>';
+             mytable+='<td>'+address[i]+'</td>';
+             mytable+='<td>'+gender[i]+'</td>';
+             mytable+='<td>'+'<a href="../form/form.html?id='+id[i]+'"><img src="../image/editicon.png" height="20px" width="20px" id="edit"></a>'+'</td>';
+             mytable+='<td>'+  '<img src="../image/delete_icon.png"  height="20px" width="20px" class="delete" id='+id[i]+' >'+'</td>';
+
+             mytable+='</tr>';
+    
+    
+    
+     
+ }
+ $getdata.append(mytable);
+ 
+ $('.delete').click(function(){
+var myid=this.id;
+console.log(myid);
+
+var url_="HTTP://172.104.190.30:7777/api/v1/users/"+myid;
+console.log(url_)
+$.ajax({
+          url:url_,
+          type: 'DELETE',
+          dataType:'JSON',
+        
+          
+          success: function(result) {
+ 	     //Write your code here
+          alert("suceess DELETE");
+          window.location.href = "../grid/grid.html";
+         
+          },
+          error:function(result) {console.log("error");}
+    });
+});
+ 
+ 
+     
+       },
+
+});
+
+
+ 
+
+
+});
+
+
+
+
+        </script>
+    </head>
+
+    <body>
+
+            <h2> Get method</h2><br><br>
+
+            <a href='../form/form.html' ><input type="button" id="add" value="add"></a><br>
+           
+           <table  id="getM">
+               <tr>    
+                        <th>id</th>
+                       <th>name</th>
+                       <th>email</th>
+                       <th>phone</th>
+                       <th>address</th>
+                       <th>gender</th>
+                       <th>Edit</th>
+                       <th>Delete</th>
+           
+               </tr>
+              
+           </table>
+           
+           
+
+    </body>
+
+</html>
