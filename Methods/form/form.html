@@ -18,7 +18,7 @@
 
 $("#submit").click(function(){   
             
-            var myObje={
+            let myObje={
             
                 name:$('#name').val(),
                 email:$('#email').val(),
@@ -60,10 +60,10 @@ $("#submit").click(function(){
             }else{
 
 
-                    var id=spliturl[1].split('=');
-var id=id[1];
+                    let id=spliturl[1].split('=');
+ id=id[1];
 console.log(id);
- var url_="HTTP://172.104.190.30:7777/api/v1/users/"+id;
+ let url_="HTTP://172.104.190.30:7777/api/v1/users/"+id;
 console.log(url_)
 $.ajax({
           url:url_,
@@ -91,7 +91,7 @@ $.ajax({
 
    $("#submit").click(function(){   
 
-var myObje={
+let myObje={
 
     name:$('#name').val(),
     email:$('#email').val(),

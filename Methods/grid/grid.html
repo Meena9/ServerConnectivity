@@ -14,7 +14,7 @@
 
 
 
-var $getdata=$('#getM');
+let $getdata=$('#getM');
 $.ajax({
  url:'HTTP://172.104.190.30:7777/api/v1/users',
        type: 'GET',
@@ -22,28 +22,28 @@ $.ajax({
        
        success: function(getdata) {
        //Write your code here
-      var mytable= '';
+      let mytable= '';
             console.log("success");     
-   var data=getdata.data;
-   var id=data.map(x=>x._id);
-   var name=data.map(x=>x.name);
-   var email=data.map(x=>x.email);
-   var phone=data.map(x=>x.phone);
-   var address=data.map(x=>x.address);
-   var gender=data.map(x=>x.gender);
-var a;
- for(var i=0;i<name.length;i++){
-     mytable+='<tr>';
-             mytable+='<td>'+id[i]+'</td>';
-             mytable+='<td>'+name[i]+'</td>';
-             mytable+='<td>'+email[i]+'</td>';
-             mytable+='<td>'+phone[i]+'</td>';
-             mytable+='<td>'+address[i]+'</td>';
-             mytable+='<td>'+gender[i]+'</td>';
-             mytable+='<td>'+'<a href="../form/form.html?id='+id[i]+'"><img src="../image/editicon.png" height="20px" width="20px" id="edit"></a>'+'</td>';
-             mytable+='<td>'+  '<img src="../image/delete_icon.png"  height="20px" width="20px" class="delete" id='+id[i]+' >'+'</td>';
+   let data=getdata.data;
+   let id=data.map(x=>x._id);
+   let name=data.map(x=>x.name);
+   let email=data.map(x=>x.email);
+   let phone=data.map(x=>x.phone);
+   let address=data.map(x=>x.address);
+   let gender=data.map(x=>x.gender);
+let a;
+ for(let i=0;i<name.length;i++){
+     mytable+=`<tr>
+     <td>${id[i]}</td>
+             <td>${name[i]}</td>
+             <td>${email[i]}</td>
+             <td>${phone[i]}</td>
+             <td>${address[i]}</td>
+             <td>${gender[i]}</td>
+            <td><a href="../form/form.html?id=${id[i]}"><img src="../image/editicon.png" height="20px" width="20px" id="edit"></a></td>
+          <td><img src="../image/delete_icon.png"  height="20px" width="20px" class="delete" id=${id[i]} ></td>
 
-             mytable+='</tr>';
+          </tr>`
     
     
     
@@ -52,10 +52,10 @@ var a;
  $getdata.append(mytable);
  
  $('.delete').click(function(){
-var myid=this.id;
+let myid=this.id;
 console.log(myid);
 
-var url_="HTTP://172.104.190.30:7777/api/v1/users/"+myid;
+let url_="HTTP://172.104.190.30:7777/api/v1/users/"+myid;
 console.log(url_)
 $.ajax({
           url:url_,
